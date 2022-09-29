@@ -5,12 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDao {
-    private ConnectionMaker connectionMaker;
     private final Connection con;
 
     public UserDao(ConnectionMaker connectionMaker){
         this.con = connectionMaker.getConnection();
-        this.connectionMaker =  connectionMaker;
     }
 
     public void add(User user) throws SQLException {
@@ -21,7 +19,6 @@ public class UserDao {
 
         ps.executeUpdate();
         ps.close();
-        con.close();
     }
 
     public List<User> getUsers() throws SQLException {
@@ -44,6 +41,9 @@ public class UserDao {
         PreparedStatement ps = con.prepareStatement("delete from users");
         ps.execute();
         ps.close();
+    }
+
+    public void closeConnection() throws SQLException {
         con.close();
     }
 }
