@@ -4,7 +4,7 @@ import java.util.List;
 
 public class NUserDaoTest {
     public static void main(String[] args) throws SQLException {
-        UserDao userDao = new UserDao(new NConnectionMaker());
+        UserDao userDao = new DaoFactory().getUserDao();
 
         userDao.deleteAll();
         for(int i = 0; i < 3; i++){
@@ -20,7 +20,6 @@ public class NUserDaoTest {
         for(User u : users){
             System.out.println(u);
         }
-
         userDao.closeConnection();
     }
 }
