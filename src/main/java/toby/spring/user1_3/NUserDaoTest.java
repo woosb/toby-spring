@@ -1,10 +1,15 @@
 package toby.spring.user1_3;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
 import java.sql.SQLException;
 import java.util.List;
 
 public class NUserDaoTest {
     public static void main(String[] args) throws SQLException {
-        UserDao userDao = new DaoFactory().getUserDao();
+
+        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(DaoFactory.class);
+        UserDao userDao = applicationContext.getBean("getUserDao", UserDao.class);
 
         userDao.deleteAll();
         for(int i = 0; i < 3; i++){
