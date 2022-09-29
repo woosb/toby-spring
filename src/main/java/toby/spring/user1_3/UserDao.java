@@ -5,13 +5,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDao {
-    private final Connection con;
+    private ConnectionMaker connectionMaker;
 
     public UserDao(ConnectionMaker connectionMaker){
-        this.con = connectionMaker.getConnection();
+        this.connectionMaker = connectionMaker;
     }
 
     public void add(User user) throws SQLException {
+        Connection con = connectionMaker.getConnection();
         PreparedStatement ps = con.prepareStatement("insert into users(id, name, password) values(?,?,?)");
         ps.setString(1, user.getId());
         ps.setString(2, user.getName());
@@ -19,9 +20,11 @@ public class UserDao {
 
         ps.executeUpdate();
         ps.close();
+        con.close();
     }
 
     public List<User> getUsers() throws SQLException {
+        Connection con = connectionMaker.getConnection();
         PreparedStatement ps = con.prepareStatement("select * from users");
         ResultSet resultSet = ps.executeQuery();
 
@@ -34,16 +37,15 @@ public class UserDao {
             user.setName(resultSet.getString("name"));
             users.add(user);
         }
+        con.close();
         return users;
     }
 
     public void deleteAll() throws SQLException {
+        Connection con = connectionMaker.getConnection();
         PreparedStatement ps = con.prepareStatement("delete from users");
         ps.execute();
         ps.close();
-    }
-
-    public void closeConnection() throws SQLException {
         con.close();
     }
 }

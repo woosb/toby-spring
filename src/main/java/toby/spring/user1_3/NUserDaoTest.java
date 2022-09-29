@@ -25,6 +25,5 @@ public class NUserDaoTest {
         for(User u : users){
             System.out.println(u);
         }
-        userDao.closeConnection();
     }
 }
