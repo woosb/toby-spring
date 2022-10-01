@@ -13,7 +13,6 @@ import java.util.List;
 public class UserDao {
     private ConnectionMaker connectionMaker;
 
-    public UserDao(){}
     public UserDao(ConnectionMaker connectionMaker){
         this.connectionMaker = connectionMaker;
     }
@@ -24,7 +23,6 @@ public class UserDao {
     public void setConnectionMaker(ConnectionMaker connectionMaker){
         this.connectionMaker = connectionMaker;
     }
-
 
 
     /*
