@@ -21,7 +21,7 @@ public class UserDao {
     * 의존관계 검색으로 connectionMaker를 가져오는 생성자 이다.
     *  */
     public UserDao(){
-        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(DaoFactory.class);
+        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(CountingDaoFactory.class);
         this.connectionMaker = applicationContext.getBean("connectionMaker", ConnectionMaker.class);
     }
 

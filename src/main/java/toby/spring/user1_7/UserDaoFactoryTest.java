@@ -8,7 +8,7 @@ import java.util.List;
 public class UserDaoFactoryTest {
     public static void main(String[] args) throws SQLException {
 
-        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(DaoFactory.class);
+        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(CountingDaoFactory.class);
         UserDao userDao = applicationContext.getBean("userDao", UserDao.class);
 
         userDao.deleteAll();
