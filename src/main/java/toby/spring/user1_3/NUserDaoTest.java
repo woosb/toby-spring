@@ -1,5 +1,6 @@
 package toby.spring.user1_3;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
 
 import java.sql.SQLException;
@@ -8,7 +9,7 @@ import java.util.List;
 public class NUserDaoTest {
     public static void main(String[] args) throws SQLException {
 
-        ApplicationContext applicationContext = new GenericXmlApplicationContext("WEB-INF/applicationContext.xml");
+        ApplicationContext applicationContext = new GenericXmlApplicationContext("/WEB-INF/user1_3Context.xml");
         UserDao userDao = applicationContext.getBean("userDao", UserDao.class);
 
         userDao.deleteAll();
