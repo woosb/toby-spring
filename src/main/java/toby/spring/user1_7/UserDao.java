@@ -11,19 +11,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDao {
-    private final ConnectionMaker connectionMaker;
+    private ConnectionMaker connectionMaker;
 
+    public UserDao(){}
     public UserDao(ConnectionMaker connectionMaker){
         this.connectionMaker = connectionMaker;
     }
 
     /*
+        setter를 이용하여 의존관계 주입
+     */
+    public void setConnectionMaker(ConnectionMaker connectionMaker){
+        this.connectionMaker = connectionMaker;
+    }
+
+
+
+    /*
     * 의존관계 검색으로 connectionMaker를 가져오는 생성자 이다.
     *  */
-    public UserDao(){
-        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(CountingDaoFactory.class);
-        this.connectionMaker = applicationContext.getBean("connectionMaker", ConnectionMaker.class);
-    }
+//    public UserDao(){
+//        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(CountingDaoFactory.class);
+//        this.connectionMaker = applicationContext.getBean("connectionMaker", ConnectionMaker.class);
+//    }
 
     public void add(User user) throws SQLException {
         Connection con = connectionMaker.getConnection();
