@@ -1,5 +1,8 @@
 package toby.spring.user1_7;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,6 +15,14 @@ public class UserDao {
 
     public UserDao(ConnectionMaker connectionMaker){
         this.connectionMaker = connectionMaker;
+    }
+
+    /*
+    * 의존관계 검색으로 connectionMaker를 가져오는 생성자 이다.
+    *  */
+    public UserDao(){
+        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(DaoFactory.class);
+        this.connectionMaker = applicationContext.getBean("connectionMaker", ConnectionMaker.class);
     }
 
     public void add(User user) throws SQLException {
