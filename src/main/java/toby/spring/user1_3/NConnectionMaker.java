@@ -6,19 +6,7 @@ import java.sql.SQLException;
 
 public class NConnectionMaker implements ConnectionMaker{
 
-     private Connection con = null;
-     public void makeNewConnection(){
-          try{
-               this.con = DriverManager.getConnection("jdbc:mysql://localhost/toby_spring", "root", "1234");
-          }catch(SQLException e){
-               e.printStackTrace();
-          }
-     }
-
-     public Connection getConnection(){
-          if(this.con == null){
-               makeNewConnection();
-          }
-          return con;
+     public Connection getConnection() throws SQLException {
+          return DriverManager.getConnection("jdbc:mysql://localhost/toby_spring", "root", "1234");
      }
 }

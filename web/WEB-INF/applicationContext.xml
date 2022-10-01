@@ -3,4 +3,9 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
 
+    <bean id="connectionMaker" class="toby.spring.user1_3.NConnectionMaker"/>
+    <bean id="userDao" class="toby.spring.user1_3.UserDao">
+        <property name="connectionMaker" ref="connectionMaker"></property>
+    </bean>
+
 </beans>

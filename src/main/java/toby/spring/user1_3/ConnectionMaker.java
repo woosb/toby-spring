@@ -1,8 +1,8 @@
 package toby.spring.user1_3;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 
 public interface ConnectionMaker {
-    void makeNewConnection ();
-    Connection getConnection ();
+    Connection getConnection () throws SQLException;
 }
