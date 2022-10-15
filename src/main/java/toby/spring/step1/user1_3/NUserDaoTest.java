@@ -1,6 +1,5 @@
-package toby.spring.user1_3;
+package toby.spring.step1.user1_3;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
 
 import java.sql.SQLException;

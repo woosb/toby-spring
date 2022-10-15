@@ -1,8 +1,6 @@
-package toby.spring.user1_7;
+package toby.spring.step1.user1_8;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
-
+import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,30 +9,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDao {
-    private ConnectionMaker connectionMaker;
 
-    public UserDao(ConnectionMaker connectionMaker){
-        this.connectionMaker = connectionMaker;
+    public UserDao(){}
+    public DataSource dataSource;
+
+    public void setDataSource(DataSource dataSource) {
+        this.dataSource = dataSource;
     }
-
-    /*
-        setter를 이용하여 의존관계 주입
-     */
-    public void setConnectionMaker(ConnectionMaker connectionMaker){
-        this.connectionMaker = connectionMaker;
-    }
-
-
-    /*
-    * 의존관계 검색으로 connectionMaker를 가져오는 생성자 이다.
-    *  */
-//    public UserDao(){
-//        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(CountingDaoFactory.class);
-//        this.connectionMaker = applicationContext.getBean("connectionMaker", ConnectionMaker.class);
-//    }
 
     public void add(User user) throws SQLException {
-        Connection con = connectionMaker.getConnection();
+        Connection con = dataSource.getConnection();
         PreparedStatement ps = con.prepareStatement("insert into users(id, name, password) values(?,?,?)");
         ps.setString(1, user.getId());
         ps.setString(2, user.getName());
@@ -46,7 +30,7 @@ public class UserDao {
     }
 
     public List<User> getUsers() throws SQLException {
-        Connection con = connectionMaker.getConnection();
+        Connection con = dataSource.getConnection();
         PreparedStatement ps = con.prepareStatement("select * from users");
         ResultSet resultSet = ps.executeQuery();
 
@@ -63,8 +47,22 @@ public class UserDao {
         return users;
     }
 
+    public User getUser(String id) throws SQLException{
+        Connection con = dataSource.getConnection();
+        PreparedStatement ps = con.prepareStatement("select * from users where id = ?");
+        ps.setString(1, id);
+        ResultSet resultSet = ps.executeQuery();
+        resultSet.next();
+        User user = new User();
+        user.setId(resultSet.getString("id"));
+        user.setPassword(resultSet.getString("password"));
+        user.setName(resultSet.getString("name"));
+
+        return user;
+    }
+
     public void deleteAll() throws SQLException {
-        Connection con = connectionMaker.getConnection();
+        Connection con = dataSource.getConnection();
         PreparedStatement ps = con.prepareStatement("delete from users");
         ps.execute();
         ps.close();

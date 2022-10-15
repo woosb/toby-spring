@@ -1,6 +1,5 @@
-package toby.spring.user1_8;
+package toby.spring.step1.user1_7;
 
-import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,16 +8,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UserDao {
+    private ConnectionMaker connectionMaker;
 
-    public UserDao(){}
-    public DataSource dataSource;
-
-    public void setDataSource(DataSource dataSource) {
-        this.dataSource = dataSource;
+    public UserDao(ConnectionMaker connectionMaker){
+        this.connectionMaker = connectionMaker;
     }
 
+    /*
+        setter를 이용하여 의존관계 주입
+     */
+    public void setConnectionMaker(ConnectionMaker connectionMaker){
+        this.connectionMaker = connectionMaker;
+    }
+
+
+    /*
+    * 의존관계 검색으로 connectionMaker를 가져오는 생성자 이다.
+    *  */
+//    public UserDao(){
+//        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(CountingDaoFactory.class);
+//        this.connectionMaker = applicationContext.getBean("connectionMaker", ConnectionMaker.class);
+//    }
+
     public void add(User user) throws SQLException {
-        Connection con = dataSource.getConnection();
+        Connection con = connectionMaker.getConnection();
         PreparedStatement ps = con.prepareStatement("insert into users(id, name, password) values(?,?,?)");
         ps.setString(1, user.getId());
         ps.setString(2, user.getName());
@@ -30,7 +43,7 @@ public class UserDao {
     }
 
     public List<User> getUsers() throws SQLException {
-        Connection con = dataSource.getConnection();
+        Connection con = connectionMaker.getConnection();
         PreparedStatement ps = con.prepareStatement("select * from users");
         ResultSet resultSet = ps.executeQuery();
 
@@ -48,7 +61,7 @@ public class UserDao {
     }
 
     public void deleteAll() throws SQLException {
-        Connection con = dataSource.getConnection();
+        Connection con = connectionMaker.getConnection();
         PreparedStatement ps = con.prepareStatement("delete from users");
         ps.execute();
         ps.close();

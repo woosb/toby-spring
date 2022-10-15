@@ -1,4 +1,4 @@
-package toby.spring.user1_2;
+package toby.spring.step1.user1_8;
 
 public class User {
     String id;

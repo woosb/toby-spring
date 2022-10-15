@@ -1,6 +1,6 @@
-import toby.spring.user1_2.NUserDao;
-import toby.spring.user1_2.User;
-import toby.spring.user1_2.UserDao;
+import toby.spring.step1.user1_2.NUserDao;
+import toby.spring.step1.user1_2.User;
+import toby.spring.step1.user1_2.UserDao;
 
 import java.sql.SQLException;
 import java.util.List;

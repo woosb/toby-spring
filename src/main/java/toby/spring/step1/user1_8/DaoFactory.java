@@ -1,4 +1,4 @@
-package toby.spring.user1_8;
+package toby.spring.step1.user1_8;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
