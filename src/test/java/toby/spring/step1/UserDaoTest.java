@@ -12,15 +12,21 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.GenericXmlApplicationContext;
 
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.jdbc.datasource.SingleConnectionDataSource;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import toby.spring.step1.user1_8.User;
 import toby.spring.step1.user1_8.UserDao;
 
+import javax.sql.DataSource;
 import java.sql.SQLException;
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations="/WEB-INF/user1_8Context.xml")
-
+@DirtiesContext
+// @DirtiesContext:
+// - 테스트 메소드에서 애플리케이션 컨텍스트의 구성이나 상태를 변경한다는 것을 테스트 컨텍스트 프레임워크에 알려준다.
+// - 이 애노테이션이 붙은 테스트 클래스에는 애플리케이션 컨텍스트 공유를 허용하지 않는다.
 public class UserDaoTest {
 
     /*
@@ -44,6 +50,9 @@ public class UserDaoTest {
         user1 = new User("qwer", "유저1", "1234");
         user2 = new User("asdf", "유저2", "5678");
         user3 = new User("zxcv", "유저3", "7946");
+
+        DataSource dataSource = new SingleConnectionDataSource("jdbc:mysql://localhost/toby_spring", "root", "1234", true);
+        userDao.setDataSource(dataSource);
     }
 
     @Test
