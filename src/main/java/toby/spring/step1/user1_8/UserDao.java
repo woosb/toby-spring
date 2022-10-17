@@ -1,5 +1,7 @@
 package toby.spring.step1.user1_8;
 
+import org.springframework.dao.EmptyResultDataAccessException;
+
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -52,12 +54,16 @@ public class UserDao {
         PreparedStatement ps = con.prepareStatement("select * from users where id = ?");
         ps.setString(1, id);
         ResultSet resultSet = ps.executeQuery();
-        resultSet.next();
-        User user = new User();
-        user.setId(resultSet.getString("id"));
-        user.setPassword(resultSet.getString("password"));
-        user.setName(resultSet.getString("name"));
 
+        User user = null;
+        if(resultSet.next()){
+            user = new User();
+            user.setId(resultSet.getString("id"));
+            user.setPassword(resultSet.getString("password"));
+            user.setName(resultSet.getString("name"));
+        }
+
+        if(user == null) throw new EmptyResultDataAccessException(1);
         return user;
     }
 
@@ -67,5 +73,13 @@ public class UserDao {
         ps.execute();
         ps.close();
         con.close();
+    }
+
+    public int getCount() throws SQLException{
+        Connection con = dataSource.getConnection();
+        PreparedStatement ps = con.prepareStatement("select count(*) from users");
+        ResultSet rs = ps.executeQuery();
+        rs.next();
+        return rs.getInt(1);
     }
 }
