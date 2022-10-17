@@ -13,8 +13,8 @@ import java.util.Set;
 * 이를 검증하기 위한 테스트 코드는 아래와 같다.
 *
 * */
-public class JunitTest {
-    static Set<JunitTest> testObjects = new HashSet<>();
+public class JunitTest1 {
+    static Set<JunitTest1> testObjects = new HashSet<>();
 
     @Test
     public void test1(){
