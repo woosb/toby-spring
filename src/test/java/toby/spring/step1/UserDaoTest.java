@@ -49,6 +49,8 @@ public class UserDaoTest {
         user2 = new User("asdf", "유저2", "5678");
         user3 = new User("zxcv", "유저3", "7946");
 
+        // user1_8Context.xml 에 있는 설정정보를 사용하지 않고 userDao 에 강제로 DataSource 를 주입해준다.
+        // @DirtiesContext : 테스트 클래스를 생성할 때 ApplicationContext 를 공유하지 않도록 설정하여 Datasource 를 강제로 주입한 userDao 를 사용하도록 한다.
         DataSource dataSource = new SingleConnectionDataSource("jdbc:mysql://localhost/toby_spring", "root", "1234", true);
         userDao.setDataSource(dataSource);
     }
