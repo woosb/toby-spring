@@ -8,8 +8,6 @@ import org.junit.Test;
 
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.GenericXmlApplicationContext;
 
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.datasource.SingleConnectionDataSource;
@@ -22,7 +20,7 @@ import toby.spring.step1.user1_8.UserDao;
 import javax.sql.DataSource;
 import java.sql.SQLException;
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations="/WEB-INF/user1_8Context.xml")
+@ContextConfiguration(locations= "/WEB-INF/step1/user1_8Context.xml")
 @DirtiesContext
 // @DirtiesContext:
 // - 테스트 메소드에서 애플리케이션 컨텍스트의 구성이나 상태를 변경한다는 것을 테스트 컨텍스트 프레임워크에 알려준다.

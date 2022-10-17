@@ -8,7 +8,7 @@ import java.util.List;
 public class NUserDaoTest {
     public static void main(String[] args) throws SQLException {
 
-        ApplicationContext applicationContext = new GenericXmlApplicationContext("/WEB-INF/user1_3Context.xml");
+        ApplicationContext applicationContext = new GenericXmlApplicationContext("/WEB-INF/step1/user1_3Context.xml");
         UserDao userDao = applicationContext.getBean("userDao", UserDao.class);
 
         userDao.deleteAll();
