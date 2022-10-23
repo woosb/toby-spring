@@ -9,6 +9,8 @@ public class Main {
 
     public static void main(String[] args) throws SQLException {
 
+        //commit test
+
         UserDao NuserDao = new NUserDao();
 
         NuserDao.deleteAll();
